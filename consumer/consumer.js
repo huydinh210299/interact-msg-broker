@@ -1,6 +1,7 @@
 const { Kafka } = require('kafkajs')
+const Message = require('../model/message')
+const connectDB = require('../db')
 const { KAFKA_CONFIG } = require('../config/var')
-console.log(`${KAFKA_CONFIG.KAFKA_HOST}:${KAFKA_CONFIG.KAFKA_PORT}`)
 
 const kafka = new Kafka({
   clientId: KAFKA_CONFIG.KAFKA_CLIENT_ID,
@@ -12,6 +13,7 @@ const consumer = kafka.consumer({
 })
 
 const runConsumer = async () => {
+  await connectDB()
   await consumer.connect()
   await consumer.subscribe({
     topic: KAFKA_CONFIG.KAFKA_TOPIC,
@@ -19,7 +21,7 @@ const runConsumer = async () => {
   })
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      console.log(message.value.toString())
+      await Message.create(JSON.parse(message.value))
     }
   })
 }

@@ -17,7 +17,10 @@ const runProducer = async () => {
       topic: KAFKA_CONFIG.KAFKA_TOPIC,
       messages: [
         {
-          value: `Message was sent at ${now.toLocaleTimeString()} ${now.toLocaleDateString()}`
+          value: JSON.stringify({
+            title: `Message was sent at ${now.toLocaleTimeString()} ${now.toLocaleDateString()}`,
+            time: now
+          })
         }
       ]
     })
