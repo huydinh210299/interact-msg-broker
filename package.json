@@ -5,6 +5,8 @@
   "author": "nhdinh1 <dinhlun99hy@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "kafkajs": "^2.2.0"
+    "dotenv": "^16.0.3",
+    "kafkajs": "^2.2.0",
+    "mongoose": "^6.6.5"
   }
 }
